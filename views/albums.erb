@@ -10,14 +10,12 @@
 <% if @albums.any? %>
 <ul>
   <% @albums.each do |album| %>
-  <li><a href="/albums/<%= album.id %>"><strong><%= album.name %>:</strong> <%= album.status == true ? "Available" : "Sold" %></a></li>
+  <li><a href="/albums/<%= album.id %>"><strong><%= album.name %>:</strong> <%= album.status == "t" ? "Available" : "Sold" %></a></li>
   <% end %>
 </ul>
 <% else %>
 <p>There are currently no records to display.</p>
 <% end %>
-
-<a href="/albums/new">Add a new album</a>
 
 <form action="/albums" method="get">
   <button type="submit" name="alphabetize" class="btn btn-warning">Alphabetize!</button>
@@ -25,3 +23,6 @@
   <button type="submit" name="sort_cost" class="btn btn-warning">Sort by cost!</button>
   <button type="submit" name="random" class="btn btn-warning">Get a random album</button>
 </form>
+
+<a href="/albums/new">Add a new album</a><br>
+<a href="/">Return to main page</a>

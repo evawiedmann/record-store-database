@@ -2,6 +2,7 @@
 require('sinatra')
 require('sinatra/reloader')
 require('./lib/album')
+require ('./lib/artist')
 require('./lib/song')
 require('pry')
 require('pg')
@@ -40,9 +41,13 @@ delete('/albums/:id/songs/:song_id') do
 end
 
 # This will be our home page. '/' is always the root route in a Sinatra application.
+# get('/') do
+#   @albums = Album.all
+#   erb(:albums)
+# end
+
 get('/') do
-  @albums = Album.all
-  erb(:albums)
+  erb(:index)
 end
 
 # This route will show a list of all albums.
@@ -130,6 +135,10 @@ get('/artists/:id') do
   else
   erb(:artist)
 end
+end
+
+get('/albums/new') do
+  erb(:new_album)
 end
 
 post('/artists') do
