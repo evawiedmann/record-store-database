@@ -5,7 +5,7 @@ class Album
   def initialize(attributes)
     @name = attributes.fetch(:name)
     @id = attributes.fetch(:id).to_i
-    @year = attributes.fetch(:year).to_i
+    @year = attributes[:year].to_i
     @genre = attributes.fetch(:genre)
     @artist = attributes.fetch(:artist)
     @status = attributes.fetch(:status)
