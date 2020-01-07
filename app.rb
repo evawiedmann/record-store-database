@@ -15,7 +15,7 @@ get('/albums/:id/songs/:song_id') do
   erb(:song)
 end
 
-# Post a new song. After the song is added, Sinatra will route to the view for the album the song belongs to.
+# Post a new song. After the song is added, Sinatra will route to the view for the artist the song belongs to.
 post('/albums/:id/songs') do
   @album = Album.find(params[:id].to_i())
   song = Song.new(params[:song_name], @album.id, nil)
@@ -116,4 +116,40 @@ delete('/albums/:id') do
   @album.delete()
   @albums = Album.all
   erb(:albums)
+end
+
+get('/artists') do
+  @artists = Artist.all
+  erb(:artists)
+end
+
+get('/artists/:id') do
+  @artist= Artist.find(params[:id].to_i())
+  if @artist== nil
+    erb(:go_back)
+  else
+  erb(:artist)
+end
+end
+
+post('/artists') do
+  name = params[:artist_name]
+  artist = Artist.new({:name => name, :id => id})
+  artist.save
+  @artists = Artist.all
+  erb(:artists)
+end
+
+patch('/artists/:id') do
+  @artist = Artist.find(params[:id].to_i())
+  @artist.update(params[:name])
+  @artists = Album.all
+  erb(:artists)
+end
+
+delete('/artists/:id') do
+  @artist = Artist.find(params[:id].to_i())
+  @artist.delete()
+  @artists = Artist.all
+  erb(:artists)
 end
