@@ -42,6 +42,11 @@ class Artist
     end
   end
 
+  def self.search_name(name)
+    artists = self.all
+    artists.select { |artist| /#{name}/i.match? artist.name }
+  end
+
   def update(attributes)
     if (attributes.has_key?(:name)) && (attributes.fetch(:name) != nil)
       @name = attributes.fetch(:name)

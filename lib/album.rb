@@ -116,7 +116,6 @@ class Album
     DB.exec("UPDATE albums SET status = '#{@status}' WHERE id = #{id};")
   end
 
-
   def songs
     Song.find_by_album(self.id)
   end

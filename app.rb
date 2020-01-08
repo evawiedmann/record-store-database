@@ -92,8 +92,8 @@ get('/albums/:id') do
   if @album == nil
     erb(:go_back)
   else
-  erb(:album)
-end
+    erb(:album)
+  end
 end
 
 # his will take us to a page with a form for updating an album with an ID of #{params[:id]}.
@@ -124,8 +124,16 @@ delete('/albums/:id') do
 end
 
 get('/artists') do
-  @artists = Artist.all
+  if params["search"]
+    @artists = Artist.search_name(params[:search])
+  else
+    @artists = Artist.all
+  end
   erb(:artists)
+end
+
+get('/artists/new') do
+  erb(:new_artist)
 end
 
 get('/artists/:id') do
@@ -133,17 +141,20 @@ get('/artists/:id') do
   if @artist== nil
     erb(:go_back)
   else
-  erb(:artist)
-end
+    erb(:artist)
+  end
 end
 
-get('/albums/new') do
-  erb(:new_album)
+post '/artists/:id' do
+    Artist.find(params[:id].to_i).add_album(params[:album_name])
+    erb(:artist)
+    # redirect to "/artists/#{params[:id]}"
 end
+
 
 post('/artists') do
   name = params[:artist_name]
-  artist = Artist.new({:name => name, :id => id})
+  artist = Artist.new({:name => name, :id => nil})
   artist.save
   @artists = Artist.all
   erb(:artists)
